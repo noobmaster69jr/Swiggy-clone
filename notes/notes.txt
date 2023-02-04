@@ -1,0 +1,30 @@
+Is jsx mandatory for react?
+	JSX is not a requirement for using React. Using React without JSX is especially convenient when you don't want to set up compilation in your build environment. Each JSX element is just syntactic sugar for calling React.
+
+Is ES6 mandatory for React?
+	No it is not, but is highly recommmendable as many latest project created on react rely a lot on ES6
+
+How can I write comments in JSX?
+	we can use write comments inside of {}, as react reads curly braces as javascript
+
+What is React Fragment? ​
+	 React Fragment is a feature in React that allows you to return multiple elements from a React component by allowing you to group a list of children without adding extra nodes to the DOM. 
+	 <></> shorthand  for writing React.Fragment
+
+what is virtual DOM?
+	The virtual DOM (VDOM) is a programming concept where an ideal, or “virtual”, representation of a UI is kept in memory and synced with the “real” DOM by a library such as ReactDOM. This process is called reconciliation.
+
+what is Reconciliation?
+	 https://reactjs.org/docs/reconciliation.html
+
+what is React Fiber?
+	
+Why we need keys in React? When do we need keys in React?
+A “key” is a special string attribute you need to include when creating lists of elements in React. Keys are used in React to identify which items in the list are changed, updated, or deleted. In other words, we can say that keys are used to give an identity to the elements in the lists
+
+Can we use index as keys in React?
+	We don't recommend using indexes for keys if the order of items may change. This can negatively impact performance and may cause issues with component state.
+
+Config driven UI
+	 CDD is a way of using modularity to build a loosely coupled set of components that are then composed together using a common interface.
+
