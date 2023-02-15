@@ -20,11 +20,66 @@ what is Reconciliation?
 what is React Fiber?
 	
 Why we need keys in React? When do we need keys in React?
-A “key” is a special string attribute you need to include when creating lists of elements in React. Keys are used in React to identify which items in the list are changed, updated, or deleted. In other words, we can say that keys are used to give an identity to the elements in the lists
+	A “key” is a special string attribute you need to include when creating lists of elements in React.
+ Keys are used in React to identify which items in the list are changed, updated, or deleted.
+ In other words, we can say that keys are used to give an identity to the elements in the lists
 
 Can we use index as keys in React?
-	We don't recommend using indexes for keys if the order of items may change. This can negatively impact performance and may cause issues with component state.
+	We don't recommend using indexes for keys if the order of items may change.
+ This can negatively impact performance and may cause issues with component state.
 
 Config driven UI
 	 CDD is a way of using modularity to build a loosely coupled set of components that are then composed together using a common interface.
 
+*Every component in react has some state, every time we want to use some local variable in react 
+we use state
+
+*Hook is just a normal function
+*useState() to create local state variable
+
+const [varName, setvarName] = useState("defaultValue");
+using setvarName we can change value of varName
+
+when we want to keep variable in sync with the ui we use state variable, it will automatically
+rerender
+
+Config.js allows developers to configure their applications in an XML block instead of hard-coding values inside their scripts or in JSON objects. 
+ The XML can be embedded inside an HTML document or in a separate XML file. 
+ The configuration block may contain strings, numbers, arrays and HTML.
+
+ whenever the state variable is changed the whole component is rerendered
+
+ in react we load -> render -> call api -> update ui [useEffect hook is used for this]
+
+ useEffect(callback, dependencies array) 
+ useEffect(()=>{
+
+ }, []) - callback is dependent on the dependencies array, and runs once initially and runs
+  only if it changes
+ if the dependencies array is empty it will be called only once
+ if we don't pass anything after callback useEffect will be called after every render
+
+ conditional rendering:
+ if restaurant is empty load - shimmer ui
+ else load - actual ui
+
+
+ diff algorithm is the core of react
+
+ react says that never create a component inside a component
+ never write a useState insde a if, else or for it leads to inconsistencies
+
+ always create state variables inside function component
+
+ use "formik" package to create form
+
+ import {createBrowserRouter, RouterProvider, Outlet } from "react-router-dom" -> helps us create a router
+
+ SPA - single page application
+ 2 types of routing :
+ 		 1.server side routing - all our pages comes from server
+		 2.client side routing - we are only loading another component, not making network call
+
+to use anchor element inside react we use "Link"
+
+all the children will go inside the Outlet according to the route
