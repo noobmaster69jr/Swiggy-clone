@@ -1,12 +1,18 @@
 import { restaurantList } from "../Constants";
 import RestaurantCard from "./RestaurantCard";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext} from "react";
 import Shimmer from "./Shimmer.js"
 import {Link} from "react-router-dom"
+import {filterData} from "../utils/helper"
+import useOnline from "../utils/useOnline"
+import UserContext from "../utils/UserContext.js"
+
 const Body = () => {
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [searchText, setsearchText] = useState("");
+
+  const {user, setUser } = useContext(UserContext)
 
 useEffect(()=>{
     getRestaurants();
@@ -21,12 +27,12 @@ async function getRestaurants(){
   setFilteredRestaurants(json?.data?.cards[2]?.data?.data?.cards)
 }
 
-  function filterData(searchText, restaurants) {
-    const data = restaurants.filter((restaurant) =>
-      restaurant?.data?.name?.toLowerCase().includes(searchText.toLowerCase())
-    );
-    return data;
-  }
+const isOnline = useOnline();
+if(!isOnline){
+  return <h1>You are offline, check your network connection</h1>
+}
+
+  
 
   //not rendering component, early return
   if(!allRestaurants) return (null);
@@ -35,8 +41,9 @@ async function getRestaurants(){
     <Shimmer />
   ) : (
     <>
-      <div className="search-container">
+      <div className="search-container bg-pink-50 p-5 my-5">
         <input
+          data-testid="search-input"
           type="text"
           placeholder="search"
           className="search-input"
@@ -46,7 +53,8 @@ async function getRestaurants(){
           }}
         ></input>
         <button
-          className="search-btn"
+          data-testid="search"
+          className="m-2 p-2 bg-purple-900 hover:bg-color-300 text-white rounded-md"
           onClick={() => {
             const data = filterData(searchText, allRestaurants);
             setFilteredRestaurants(data);
@@ -54,8 +62,17 @@ async function getRestaurants(){
         >
           Search
         </button>
+        <input
+          value={user.name}
+          onChange={(e) =>
+            setUser({
+              name: e.target.value,
+              email: "new@gmail.com",
+            })
+          }
+        ></input>
       </div>
-      <div className="Restaurant-List">
+      <div className="flex flex-wrap" data-testid="res-list">
         {filteredRestaurants.map((restaurant) => (
           <Link
             to={"/restaurant/" + restaurant.data.id}

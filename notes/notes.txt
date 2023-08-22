@@ -82,4 +82,97 @@ Config.js allows developers to configure their applications in an XML block inst
 
 to use anchor element inside react we use "Link"
 
+children are render inside outlet, outlet is created inside parent component
 all the children will go inside the Outlet according to the route
+
+class based components: 
+
+class Profile extends React.Component{
+	constructor(props){
+		super(props)
+		this.state={
+			count: 0,
+			count2: 7,
+
+			//class component uses one State object to maintain
+			//all state variables inside it
+		//in function components we make separate state variables
+		}
+	}
+	//constructor is called first then render
+	componentDidMount(){  //life cycle method
+		//this function is called after render, can be used same as useEffect()
+	}
+	render(){
+		return ()
+	}
+	//we cannot create class components without render method
+	//it is the only way to create class components and returns jsx
+}  
+
+
+react render happens in 2 phase:
+		render phase (constructor, render)
+		commit phase(componentDidMount)
+
+we can make componentDidMount async but not callback of useEffect as async
+
+componentDidMount is called after first render and 
+componentDidUpdate is called after every update render 
+componentWillUnmount is called when the component is about to be removed from Dom
+interval which is set in componentDidMount can be cleared in componentWillUnmount
+similarly we can use a return inside useEffect to clear the interval
+
+componentDidMount(){
+	const this.timer =setInterval(()=>{}, 1000)
+	//everytime componentDidMount is called it creates a new interval
+}
+componentWillUnmount(){
+	clearInterval(this.timer)
+	//this is shared between all methods in the component
+}
+
+useEffect({
+	const timer =setInterval(()=>{}, 1000)
+	return ()=>{
+		clearInterval(timer)
+	}
+},[])
+
+React lifecycle methods diagram
+
+we can have different bundles in different chunks, like when we need to load something only on demand
+lazy loading help us to do this, it makes to code to load slowly and react cannot find the code in time
+and it stops re-rendering.
+
+lazy loading :
+ const instagram = lazy(()=> import("./instagram"))
+
+we can use "suspense" to wrap the lazy loading component so that react handles it differently
+and also we can use a attribute "fallback" to load something meanwhile(like shimmer)
+
+Never ever try to dynamically load your code inside a component
+
+createContext stores data in a central space which can be used throughout the application
+
+we do not have useContext in class components so we use
+ <importedContext.Consumer>
+      {(value)=> valueSomething}
+</importedContext.Consumer>
+
+we can modify context in class based components by 
+<importedContext.Provider value={}>
+</importedContext.Provider>
+
+we use context to avoid props drilling
+
+redux is used for data management
+
+cons of redux:
+	huge learning curve, installation is very difficult
+
+using Provider component we give store to our app
+
+
+
+
